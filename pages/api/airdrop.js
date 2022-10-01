@@ -32,7 +32,7 @@ async function airdropSend(addressAirdropSend) {
         console.info(`CELO transaction hash received: ${txReceipt.transactionHash} - address: ${address[i]}`)
         sends.push(`CELO transaction hash received: ${txReceipt.transactionHash} - address: ${address[i]}`)
 
-        await sleep(5000)
+        await sleep(2000)
     }
 
     return sends
