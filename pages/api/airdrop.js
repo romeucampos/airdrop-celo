@@ -1,4 +1,3 @@
-// const ethers = require('ethers');
 import { CeloProvider, CeloWallet } from '@celo-tools/celo-ethers-wrapper'
 const ethers = require('ethers')
 
@@ -42,22 +41,13 @@ async function airdropSend(addressAirdropSend) {
  
 export default async function handler(req, res) {
     console.log(req.query)
-    console.log(req.query.address.split(",")[0]) 
-    console.log(".........") 
-    console.log(process.env.PASSWORD) 
+    const response = await fetch(`https://api.celoscan.io/api?module=account&action=balancemulti&address=${(req.query.address)}`)
+    const celoAddress = await response.json()
+    const addressAirdropSend = await addressAirdrop(celoAddress)
+    const sends = await airdropSend(addressAirdropSend)
+    console.log(sends)
 
-    if (req.query.address.split(",")[0] = process.env.PASSWORD) {
-        const response = await fetch(`https://api.celoscan.io/api?module=account&action=balancemulti&address=${(req.query.address)}`)
-        const celoAddress = await response.json()
-        const addressAirdropSend = await addressAirdrop(celoAddress)
-        const sends = await airdropSend(addressAirdropSend)
-        console.log(sends)
-
-        res.status(200).json(
-            sends
-        ) } else {
-        res.status(200).json(
-            "OK"
-            )
-        }
+    res.status(200).json(
+        sends
+    )
 }
